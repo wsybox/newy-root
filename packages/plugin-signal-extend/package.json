@@ -1,0 +1,38 @@
+{
+  "name": "@newy/plugin-signal-extend",
+  "version": "0.0.1",
+  "author": "weisongyao",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/plugin-signal-extend.cjs.js",
+  "module": "dist/plugin-signal-extend.esm-bundler.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "node": "./dist/plugin-signal-extend.cjs.js",
+      "module": "./dist/plugin-signal-extend.esm-bundler.js",
+      "import": "./dist/plugin-signal-extend.esm-bundler.js",
+      "require": "./dist/plugin-signal-extend.cjs.js"
+    },
+    "./*": "./*"
+  },
+  "buildOptions": {
+    "formats": [
+      "esm-bundler",
+      "cjs"
+    ]
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@newy/html": "workspace:^",
+    "@newy/shared": "workspace:^"
+  }
+}

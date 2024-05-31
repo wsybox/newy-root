@@ -1,0 +1,34 @@
+{
+  "name": "@newy/shared",
+  "version": "0.0.2",
+  "author": "weisongyao",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/shared.cjs.js",
+  "module": "dist/shared.esm-bundler.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "node": "./dist/shared.cjs.js",
+      "module": "./dist/shared.esm-bundler.js",
+      "import": "./dist/shared.esm-bundler.js",
+      "require": "./dist/shared.cjs.js"
+    },
+    "./*": "./*"
+  },
+  "buildOptions": {
+    "formats": [
+      "esm-bundler",
+      "cjs"
+    ]
+  },
+  "sideEffects": false
+}

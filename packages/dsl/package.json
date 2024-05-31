@@ -1,0 +1,36 @@
+{
+  "name": "@newy/dsl",
+  "version": "0.0.5",
+  "description": "一个描述 name, attribute, children 结构 的内部DSL",
+  "author": "weisongyao",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/dsl.cjs.js",
+  "module": "dist/dsl.esm-bundler.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "node": "./dist/dsl.cjs.js",
+      "module": "./dist/dsl.esm-bundler.js",
+      "import": "./dist/dsl.esm-bundler.js",
+      "require": "./dist/dsl.cjs.js"
+    },
+    "./*": "./*"
+  },
+  "buildOptions": {
+    "formats": [
+      "esm-bundler",
+      "cjs"
+    ],
+    "copy": "public/dsl.d.ts"
+  },
+  "sideEffects": false
+}

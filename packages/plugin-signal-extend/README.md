@@ -1,0 +1,1 @@
+## @newy/plugin-signal-extend

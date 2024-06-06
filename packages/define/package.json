@@ -6,7 +6,7 @@
   "type": "module",
   "main": "dist/define.cjs.js",
   "module": "dist/define.esm-bundler.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
@@ -16,7 +16,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./types/index.d.ts",
       "node": "./dist/define.cjs.js",
       "module": "./dist/define.esm-bundler.js",
       "import": "./dist/define.esm-bundler.js",

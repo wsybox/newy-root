@@ -7,7 +7,7 @@
   "type": "module",
   "main": "dist/dsl.cjs.js",
   "module": "dist/dsl.esm-bundler.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
@@ -17,7 +17,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./types/index.d.ts",
       "node": "./dist/dsl.cjs.js",
       "module": "./dist/dsl.esm-bundler.js",
       "import": "./dist/dsl.esm-bundler.js",

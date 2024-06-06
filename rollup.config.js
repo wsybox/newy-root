@@ -1,8 +1,6 @@
 import { defineConfig } from 'rollup'
 import { createRequire } from 'node:module'
 import json from '@rollup/plugin-json'
-import copy from 'rollup-plugin-copy'
-import copy2 from 'rollup-plugin-copy2'
 import resolvePlugin from '@rollup/plugin-node-resolve' // 解析第三方插件
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -60,19 +58,7 @@ function createConfig(format, output) {
         '@newy/dsl': 'NewyDsl'
       }
     }, // 输出
-    plugins: [
-      json(),
-      copy({
-        targets: [
-          {
-            src: resolve('src/index.d.ts'),
-            dest: resolve('dist')
-          }
-        ]
-      }),
-      // copy2({ assets: [resolve('src/index.d.ts')] }),
-      resolvePlugin()
-    ]
+    plugins: [json(), resolvePlugin()]
   }
   return config
 }

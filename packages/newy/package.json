@@ -9,7 +9,7 @@
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/newy.esm-bundler.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "unpkg": "dist/newy.global.js",
   "jsdelivr": "dist/newy.global.js",
   "publishConfig": {
@@ -21,7 +21,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./types/index.d.ts",
       "node": "./dist/newy.cjs.js",
       "module": "./dist/newy.esm-bundler.js",
       "import": "./dist/newy.esm-bundler.js",

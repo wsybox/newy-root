@@ -6,7 +6,7 @@
   "type": "module",
   "main": "dist/shared.cjs.js",
   "module": "dist/shared.esm-bundler.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
@@ -16,7 +16,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./types/index.d.ts",
       "node": "./dist/shared.cjs.js",
       "module": "./dist/shared.esm-bundler.js",
       "import": "./dist/shared.esm-bundler.js",

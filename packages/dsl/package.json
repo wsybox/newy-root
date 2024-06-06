@@ -13,7 +13,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "exports": {
     ".": {

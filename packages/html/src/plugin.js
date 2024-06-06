@@ -85,7 +85,7 @@ let _use = {
       let key
       for (key in _ctx) if (isUndef(ctx[key])) ctx[key] = _ctx[key]
     }
-    return this
+    return _use
   }
 }
 

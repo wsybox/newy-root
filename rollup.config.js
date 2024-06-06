@@ -45,19 +45,29 @@ function createConfig(format, output) {
   const isGlobalBuild = /global/.test(format)
   if (isGlobalBuild) output.name = packageOptions.name
   output.sourcemap = false
+  let external = [],
+    dep
+  if ((dep = pkg.dependencies)) {
+    external = Object.keys(dep).filter(
+      key => !(key.startsWith('@newy/') && dep[key] === 'workspace:^')
+    )
+    if (external.length)
+      output.globals = external.reduce(
+        (rv, key) => ({
+          ...rv,
+          [key]: key.replace(/[^A-Za-z\d]{1}([a-z])/g, (_, i) => i.toUpperCase())
+        }),
+        {}
+      )
+  }
+
+  external.push('@newy/shared', '@newy/dsl')
+
   // 生成rollup配置
   const config = {
-    external: ['@newy/shared', '@newy/dsl'],
-
+    external,
     input: resolve(`src/index.js`), // 输入
-    output: {
-      ...output,
-      validate: true,
-      globals: {
-        '@newy/shared': 'NewyShared',
-        '@newy/dsl': 'NewyDsl'
-      }
-    }, // 输出
+    output, // 输出
     plugins: [json(), resolvePlugin()]
   }
   return config

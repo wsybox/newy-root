@@ -33,7 +33,7 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "@newy/html": "workspace:^",
-    "@newy/shared": "workspace:^"
+    "@newy/html": "workspace:*",
+    "@newy/shared": "workspace:*"
   }
 }

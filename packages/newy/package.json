@@ -31,10 +31,10 @@
     "./*": "./*"
   },
   "dependencies": {
-    "@newy/define": "workspace:^",
-    "@newy/html": "workspace:^",
-    "@newy/signal": "workspace:^",
-    "@newy/plugin-signal-extend": "workspace:^"
+    "@newy/define": "workspace:*",
+    "@newy/html": "workspace:*",
+    "@newy/signal": "workspace:*",
+    "@newy/plugin-signal-extend": "workspace:*"
   },
   "buildOptions": {
     "name": "Newy",

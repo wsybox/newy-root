@@ -33,7 +33,7 @@
     "./*": "./*"
   },
   "dependencies": {
-    "@newy/shared": "workspace:^"
+    "@newy/shared": "workspace:*"
   },
   "buildOptions": {
     "name": "NewySignal",

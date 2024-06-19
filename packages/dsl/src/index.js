@@ -4,7 +4,7 @@ const _te = (parm, type) => {
   if (!!parm && typeof parm !== type) throw TypeError(`Parameter ${parm} must be a ${type}`)
 }
 
-export default (config = {}) => {
+export const init = (config = {}) => {
   let _cache = new WeakSet()
   let _confMap = new WeakMap()
   let { resolve, progress } = {

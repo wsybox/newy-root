@@ -1,4 +1,4 @@
-import { hook } from '@newy/complier'
+import { hook } from '@newy/compiler'
 
 const pluginCtx = { hook }
 

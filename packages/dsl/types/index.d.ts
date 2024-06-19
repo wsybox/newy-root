@@ -20,5 +20,5 @@ declare module '@newy/dsl' {
   }
 
   type Init = <T = Data>(config?: Config<T>) => InitReturn<T>
-  export default Init
+  export const init: Init
 }

@@ -39,9 +39,7 @@ const packageOptions = pkg.buildOptions || {}
 // 1、创建一个打包配置
 function createConfig(format, output) {
   const isGlobalBuild = /global/.test(format)
-  if (isGlobalBuild) {
-    output.name = packageOptions.name
-  }
+  if (isGlobalBuild) output.name = packageOptions.name
   output.sourcemap = false
 
   // 生成rollup配置

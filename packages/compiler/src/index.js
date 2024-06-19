@@ -1,4 +1,4 @@
-import init from '@newy/dsl'
+import { init } from '@newy/dsl'
 import {
   isString,
   isPrimitive,

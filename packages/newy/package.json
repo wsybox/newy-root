@@ -1,6 +1,6 @@
 {
   "name": "newy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A newy library",
   "author": "weisongyao",
   "keywords": [
@@ -33,6 +33,7 @@
     "./*": "./*"
   },
   "dependencies": {
+    "@newy/compiler": "workspace:*",
     "@newy/html": "workspace:*",
     "@newy/signal": "workspace:*"
   },
@@ -42,8 +43,7 @@
       "esm-bundler",
       "cjs",
       "global"
-    ],
-    "externals": []
+    ]
   },
   "sideEffects": false
 }

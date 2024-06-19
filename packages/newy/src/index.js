@@ -7,4 +7,5 @@ use(ExtendSignalPlugin)
 
 export { isSignal, $ }
 export * from '@newy/html'
+export * from '@newy/compiler'
 export const { effect, stop } = Signal

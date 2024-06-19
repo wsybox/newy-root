@@ -1,5 +1,7 @@
 declare module 'newy' {
-  export * from '@newy/define'
-  export { HTMLNeway, tag, use } from '@newy/html'
-  export { $, isSignal, effect, stop } from '@newy/signal'
+  import { Signal } from '@newy/html'
+  export const $: <T>(v: T) => Signal<T>
+  export const isSignal: (v: any) => v is Signal<any>
+  export { effect, stop } from '@newy/signal'
+  export * from '@newy/html'
 }

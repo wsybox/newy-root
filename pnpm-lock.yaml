@@ -46,58 +46,41 @@ importers:
         specifier: ^3.2.5
         version: 3.2.5
 
-  packages/define: {}
+  packages/compiler:
+    dependencies:
+      '@newy/dsl':
+        specifier: workspace:*
+        version: link:../dsl
+      '@newy/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/dsl: {}
 
   packages/html:
     dependencies:
-      '@newy/dsl':
-        specifier: workspace:^
-        version: link:../dsl
+      '@newy/compiler':
+        specifier: workspace:*
+        version: link:../compiler
       '@newy/shared':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../shared
 
   packages/newy:
     dependencies:
-      '@newy/define':
-        specifier: workspace:^
-        version: link:../define
       '@newy/html':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../html
-      '@newy/plugin-signal-extend':
-        specifier: workspace:^
-        version: link:../plugin-signal-extend
       '@newy/signal':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../signal
-
-  packages/plugin-signal-extend:
-    dependencies:
-      '@newy/html':
-        specifier: workspace:^
-        version: link:../html
-      '@newy/shared':
-        specifier: workspace:^
-        version: link:../shared
 
   packages/shared: {}
 
   packages/signal:
     dependencies:
       '@newy/shared':
-        specifier: workspace:^
-        version: link:../shared
-
-  packages/signal-extend-plugin:
-    dependencies:
-      '@newy/html':
-        specifier: workspace:^
-        version: link:../html
-      '@newy/shared':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../shared
 
 packages:

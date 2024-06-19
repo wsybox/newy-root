@@ -1,41 +1,43 @@
-import { getKebabCase, hasOwn, newy } from '@newy/shared'
+import { getKebabCase, hasOwn, destWeakMap } from '@newy/shared'
 
-let _t = {},
-  cur
+const puppet = Object.freeze({})
+let cur
 
-const genprops = that =>
-  new Proxy(_t, {
+const { get: __ } = destWeakMap()
+
+const genprops = self =>
+  new Proxy(puppet, {
     get: (_, key) => {
-      let n = newy(that)
-      if (!n.props) n.props = {}
+      let _p = __(self)
+      if (!_p.props) _p.props = {}
 
-      if (hasOwn(n.attrs, key)) {
-        n.props[key] = n.attrs[key]
-        delete n.attrs[key]
-      } else if (that.hasAttribute(key)) {
-        n.props[key] = that.getAttribute(key)
-        that.removeAttribute(key)
+      if (hasOwn(_p.attrs, key)) {
+        _p.props[key] = _p.attrs[key]
+        delete _p.attrs[key]
+      } else if (self.hasAttribute(key)) {
+        _p.props[key] = self.getAttribute(key)
+        self.removeAttribute(key)
       }
 
-      return n.props[key]
+      return _p.props[key]
     }
   })
 
-const genemit = that =>
-  new Proxy(_t, {
+const genemit = self =>
+  new Proxy(puppet, {
     get:
       (_, key) =>
       (...detail) => {
         let e = new CustomEvent(key, { detail })
-        that.dispatchEvent(e)
+        self.dispatchEvent(e)
       }
   })
 
 function createLifecycleMethod(name) {
   return cb => {
     if (cur) {
-      let n = newy(cur)
-      ;(n[name] || (n[name] = [])).push(cb.bind(cur))
+      let _p = __(cur)
+      ;(_p[name] || (_p[name] = [])).push(cb.bind(cur))
     }
   }
 }
@@ -44,13 +46,13 @@ export const onCreated = createLifecycleMethod('_c')
 export const onMounted = createLifecycleMethod('_m')
 export const onUnmounted = createLifecycleMethod('_um')
 
-const runcb = (that, key) => {
-  let n = newy(that)
-  n[key] && n[key].forEach(cb => cb())
+function runcb(self, key) {
+  let _p = __(self)
+  _p[key] && _p[key].forEach(cb => cb())
 }
 
-export const define = new Proxy(_t, {
-  get: (_, _name, __) => f => {
+export const define = new Proxy(puppet, {
+  get: (_, _name) => f => {
     let name = getKebabCase(_name)
     if (customElements.get(name)) throw Error(`Duplicate definition ${_name}`)
 

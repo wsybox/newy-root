@@ -31,7 +31,7 @@ readdirSync('packages')
       deps: !dep
         ? dep
         : Object.keys(dep)
-            .filter(key => key.startsWith('@newy/') && dep[key] === 'workspace:^')
+            .filter(key => key.startsWith('@newy/') && dep[key] === 'workspace:*')
             .map(k => k.slice(6))
     }
   })
@@ -78,6 +78,8 @@ function runParaller(_dirs) {
   }
   return Promise.all(result) // 存放打包的promise
 }
+
+console.log(dirs)
 
 // 2、进行打包
 run(runParaller)

@@ -25,17 +25,51 @@ export const isIntegerKey = key =>
   isString(key) && key !== 'NaN' && key[0] !== '-' && '' + parseInt(key, 10) === key
 export const hasChanged = (value, oldValue) => !Object.is(value, oldValue)
 
-const newyKey = '__newy__' //Symbol('')
+export const destWeakMap = () => {
+  let map = new WeakMap()
 
-export const newy = el => {
-  if (!el[newyKey]) el[newyKey] = {}
-  return el[newyKey]
+  return {
+    get: p => {
+      let res = map.get(p)
+      if (!res) map.set(p, (res = {}))
+      return res
+    },
+    set: (p, v) => {
+      map.set(p, v)
+    },
+    delete: p => map.delete(p),
+    has: p => map.has(p)
+  }
 }
 
 export const raf = (task, rate = 16.6) => {
+  if (!isFunction(task)) throw TypeError('')
   const start = Date.now()
   requestAnimationFrame(() => {
     if (Date.now() - start < rate) task()
     else raf(task, rate)
   })
+}
+
+export const genhook = (...keys) => {
+  let hook = new Map()
+
+  let key,
+    res = {}
+  for (key of keys) {
+    if (!isString(key)) throw TypeError('The parameter of function genhook must be a string')
+
+    res[key] = (...args) => {
+      let h = hook.get(key)
+      if (args.length === 0) return h ? [...h] : h
+      if (args.length >= 1 && isFunction(args[0])) {
+        if (!h) hook.set(key, (h = []))
+        if (args.length === 1) return h.push(args[0])
+        if (args.length === 2 && isNumber(args[1])) return h.splice(args[1], 0, args[0])
+      }
+      throw Error(`The parameters of function ${key} do not match`)
+    }
+  }
+
+  return res
 }

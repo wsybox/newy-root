@@ -23,7 +23,7 @@ readdirSync('packages')
       deps: !dep
         ? dep
         : Object.keys(dep)
-            .filter(key => key.startsWith('@newy/') && dep[key] === 'workspace:^')
+            .filter(key => key.startsWith('@newy/') && dep[key] === 'workspace:*')
             .map(k => k.slice(6))
     }
   })
@@ -37,7 +37,6 @@ readdirSync('packages')
     return 0
   })
   .forEach(({ dir, deps }) => {
-    console.log('sort: ', dir, deps)
     if (!deps) return add(dir, 0)
 
     let i,

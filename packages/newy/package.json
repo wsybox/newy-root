@@ -1,13 +1,15 @@
 {
   "name": "newy",
-  "version": "0.0.5",
+  "version": "0.0.6",
+  "description": "A newy library",
   "author": "weisongyao",
   "keywords": [
-    "newy"
+    "newy",
+    "library"
   ],
   "license": "MIT",
   "type": "module",
-  "main": "dist/index.umd.js",
+  "main": "dist/index.cjs.js",
   "module": "dist/newy.esm-bundler.js",
   "types": "types/index.d.ts",
   "unpkg": "dist/newy.global.js",
@@ -31,19 +33,17 @@
     "./*": "./*"
   },
   "dependencies": {
-    "@newy/define": "workspace:*",
     "@newy/html": "workspace:*",
-    "@newy/signal": "workspace:*",
-    "@newy/plugin-signal-extend": "workspace:*"
+    "@newy/signal": "workspace:*"
   },
   "buildOptions": {
     "name": "Newy",
     "formats": [
       "esm-bundler",
-      "esm-browser",
       "cjs",
       "global"
-    ]
+    ],
+    "externals": []
   },
   "sideEffects": false
 }

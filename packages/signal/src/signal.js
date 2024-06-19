@@ -127,7 +127,7 @@ export class ComputedSignal {
   }
 }
 
-export class PrimitiveSignal {
+export class StateSignal {
   _value
   _rawValue
 
@@ -167,7 +167,7 @@ export function triggerRefValue(ref) {
   if (dep) triggerEffects(dep)
 }
 
-const isRef = val => val instanceof PrimitiveSignal || val instanceof ComputedSignal
+const isRef = val => val instanceof StateSignal || val instanceof ComputedSignal
 
 export const isShallow = value => !!(value && value[SignalFlags.IS_SHALLOW])
 

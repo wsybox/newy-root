@@ -1,12 +1,19 @@
 {
   "name": "@newy/shared",
-  "version": "0.0.4",
+  "version": "0.0.5",
+  "description": "@newy/shared",
   "author": "weisongyao",
+  "keywords": [
+    "newy",
+    "shared"
+  ],
   "license": "MIT",
   "type": "module",
   "main": "dist/shared.cjs.js",
   "module": "dist/shared.esm-bundler.js",
   "types": "types/index.d.ts",
+  "unpkg": "dist/shared.global.js",
+  "jsdelivr": "dist/shared.global.js",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
@@ -26,9 +33,11 @@
     "./*": "./*"
   },
   "buildOptions": {
+    "name": "NewyShared",
     "formats": [
       "esm-bundler",
-      "cjs"
+      "cjs",
+      "global"
     ]
   },
   "sideEffects": false

@@ -1,3 +1,3 @@
-## @newy/signal
+## @newy/compiler
 
 [项目地址](https://github.com/wsybox/newy-root)

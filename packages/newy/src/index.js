@@ -1,14 +1,10 @@
-import { HTMLNeway, tag, use } from '@newy/html'
-import { $, isSignal, effect, stop } from '@newy/signal'
-import signalExtendPlugin from '@newy/plugin-signal-extend'
+import * as Signal from '@newy/signal'
+import { use, BasePlugin, initSignal } from '@newy/html'
 
-use({
-  is: isSignal,
-  get: val => val(),
-  computed: $,
-  effect,
-  stop
-}).use(signalExtendPlugin)
+use(BasePlugin)
+const { isSignal, $, ExtendSignalPlugin } = initSignal(Signal)
+use(ExtendSignalPlugin)
 
-export * from '@newy/define'
-export { HTMLNeway, tag, use, $, isSignal, effect, stop }
+export { isSignal, $ }
+export * from '@newy/html'
+export const { effect, stop } = Signal

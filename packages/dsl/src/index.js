@@ -1,47 +1,62 @@
-let render = function (...children) {
-  return this.render(Object.assign(children.length ? { children } : {}, this.data))
+const puppet = Object.freeze({})
+
+const _te = (parm, type) => {
+  if (!!parm && typeof parm !== type) throw TypeError(`Parameter ${parm} must be a ${type}`)
 }
 
-let isTemp = args =>
-  Array.isArray(args[0]) &&
-  args[0].every(s => typeof s === 'string') &&
-  args[0].hasOwnProperty('raw') &&
-  args.length === args[0].length
-
-let puppet = {}
-
-export class Neway extends Function {
-  constructor(data, call, conf) {
-    super()
-    this.data = data
-    this._call = call
-    if (conf) this.conf = conf
-    return new Proxy(this, {
-      apply: (target, _, args) => target._call.apply(target, args)
-    })
+export default (config = {}) => {
+  let _cache = new WeakSet()
+  let _confMap = new WeakMap()
+  let { resolve, progress } = {
+    resolve: data => ({
+      ...data,
+      children: data.children.map(f => (_cache.has(f) ? f() : f))
+    }),
+    ...config
   }
-  render(data) {
-    data.children && (data.children = data.children.map(ch => (ch instanceof Neway ? ch() : ch)))
-    return data
+  _te(resolve, 'function')
+  _te(progress, 'function')
+
+  let _progress = (f1, f2) => {
+    _cache.add(f1)
+    if (f2) _confMap.set(f1, _confMap.get(f2))
+    if (progress) progress(f1, f2)
+    return f1
   }
-}
 
-export const init = (photo = Neway) => {
-  let handle = conf => ({
-    get: (_, name) =>
-      new photo(
-        { name },
-        function (...args) {
-          if (isTemp(args)) {
-            let [strs, ...vals] = args
-            return new photo({ strs, vals, name }, render, conf)
-          }
+  function _resolve(conf, ...children) {
+    return resolve({ ...this, children }, conf)
+  }
 
-          return render.apply(this, args)
-        },
-        conf
-      )
+  let _handle = other => ({
+    get: (_, name) => {
+      let _conf = {}
+      let f = (conf, ...args) => {
+        if (
+          Array.isArray(args[0]) &&
+          args[0].every(s => typeof s === 'string') &&
+          args[0].hasOwnProperty('raw') &&
+          args.length === args[0].length
+        ) {
+          let [strings, ...values] = args
+          return _progress(_resolve.bind({ ...other, name, strings, values }, conf), f)
+        }
+
+        return _resolve.call({ ...other, name }, conf, ...args)
+      }
+      f = f.bind(null, _conf)
+      _confMap.set(f, _conf)
+
+      return _progress(f)
+    }
   })
 
-  return new Proxy(conf => new Proxy(puppet, handle(conf)), handle())
+  return {
+    n: new Proxy(
+      other => (_te(other, 'object'), new Proxy(puppet, _handle(other || puppet))),
+      _handle(puppet)
+    ),
+    is: f => _cache.has(f),
+    __conf: f => _confMap.get(f)
+  }
 }

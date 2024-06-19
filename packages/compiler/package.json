@@ -1,19 +1,19 @@
 {
-  "name": "@newy/signal",
-  "version": "0.0.6",
-  "description": "@newy/signal",
+  "name": "@newy/compiler",
+  "version": "0.0.1",
+  "description": "@newy/compiler",
   "author": "weisongyao",
   "keywords": [
     "newy",
-    "signal"
+    "compiler"
   ],
   "license": "MIT",
   "type": "module",
   "main": "dist/index.cjs.js",
-  "module": "dist/signal.esm-bundler.js",
+  "module": "dist/compiler.esm-bundler.js",
   "types": "types/index.d.ts",
-  "unpkg": "dist/signal.global.js",
-  "jsdelivr": "dist/signal.global.js",
+  "unpkg": "dist/compiler.global.js",
+  "jsdelivr": "dist/compiler.global.js",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
@@ -25,18 +25,19 @@
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "node": "./dist/signal.cjs.js",
-      "module": "./dist/signal.esm-bundler.js",
-      "import": "./dist/signal.esm-bundler.js",
-      "require": "./dist/signal.cjs.js"
+      "node": "./dist/compiler.cjs.js",
+      "module": "./dist/compiler.esm-bundler.js",
+      "import": "./dist/compiler.esm-bundler.js",
+      "require": "./dist/compiler.cjs.js"
     },
     "./*": "./*"
   },
   "dependencies": {
+    "@newy/dsl": "workspace:*",
     "@newy/shared": "workspace:*"
   },
   "buildOptions": {
-    "name": "NewySignal",
+    "name": "NewyCompiler",
     "formats": [
       "esm-bundler",
       "cjs",

@@ -3,10 +3,10 @@
 示例
 
 ```js
-import { init } from '@newy/dsl'
+import init from '@newy/dsl'
 
-let t = init()
-let { div, a, img, h1, p, button } = t
+let { n } = init()
+let { div, a, img, h1, p, button } = n
 
 let dom = div(
   a`href="https://vitejs.dev" target="_blank"`(img`src=${src1} class="logo" alt="Vite logo"`),

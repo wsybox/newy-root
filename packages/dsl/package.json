@@ -1,6 +1,6 @@
 {
   "name": "@newy/dsl",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "一个描述 name, attribute, children 结构 的内部DSL",
   "author": "weisongyao",
   "keywords": [

@@ -1,7 +1,8 @@
 import { defineConfig } from 'rollup'
 import { createRequire } from 'node:module'
 import json from '@rollup/plugin-json'
-import resolvePlugin from '@rollup/plugin-node-resolve' // 解析第三方插件
+import resolvePlugin from '@rollup/plugin-node-resolve'
+import terser from '@rollup/plugin-terser' // 解析第三方插件
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -46,7 +47,7 @@ function createConfig(format, output) {
   const config = {
     input: resolve(`src/index.js`), // 输入
     output, // 输出
-    plugins: [json(), resolvePlugin()]
+    plugins: [json(), resolvePlugin(), terser()]
   }
   return config
 }

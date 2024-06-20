@@ -13,11 +13,6 @@ declare module '@newy/compiler' {
   export const tag: Record<string, Tag<Vnode>>
   export const isTag: (tag: any) => tag is Tag<Vnode>
   export const __conf: (tag: Tag<Vnode>) => Record<string, any>
-  export const d: {
-    tag: Tag<Vnode>
-    isTag: (tag: any) => tag is Tag<Vnode>
-    __conf: (tag: Tag<Vnode>) => Record<string, any>
-  }
   export const isVnode: (vnode: any) => vnode is Vnode
   export const compiler: (children: any[], pure?: boolean, dirtymap?: DirtyMap) => Vnode
 }

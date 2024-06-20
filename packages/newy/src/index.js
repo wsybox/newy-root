@@ -5,7 +5,7 @@ use(BasePlugin)
 const { isSignal, $, ExtendSignalPlugin } = initSignal(Signal)
 use(ExtendSignalPlugin)
 
-export { isSignal, $ }
-export * from '@newy/html'
-export * from '@newy/compiler'
+export { isSignal, $, use }
+export { html, define, onCreated, onMounted, onUnmounted } from '@newy/html'
+export { tag, isTag, isVnode } from '@newy/compiler'
 export const { effect, stop } = Signal

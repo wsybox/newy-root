@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="../public/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/newy"></script>
+    <script>
+      const { html, tag, $ } = Newy
+      const { div, a, img, h1, button, p } = tag
+      const counter = $(0)
+
+      document
+        .querySelector('#app')
+        .append(
+          html(
+            div(
+              a`href="https://vitejs.dev" target="_blank"`(
+                img`src="../public/vite.svg" class="logo" alt="Vite logo"`
+              ),
+              a`href="https://www.typescriptlang.org/" target="_blank"`(
+                img`src="./typescript.svg" class="logo vanilla" alt="TypeScript logo"`
+              ),
+              h1('Vite + TypeScript'),
+              div`class="card"`(
+                button`type="button" onclick=${() => counter(i => i + 1)}`('count is ', counter)
+              ),
+              p`class="read-the-docs"`('Click on the Vite and TypeScript logos to learn more')
+            )
+          )
+        )
+    </script>
+  </body>
+</html>

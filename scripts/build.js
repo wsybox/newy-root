@@ -7,14 +7,6 @@ import path from 'node:path'
 const require = createRequire(import.meta.url)
 const pkg = p => require(path.resolve(`packages/${p}/package.json`))
 
-/*
-const dirs = [
-  [ 'define', 'dsl', 'shared' ],
-  [ 'html', 'signal' ],
-  [ 'plugin-signal-extend' ],
-  [ 'newy' ]
-]
-*/
 const dirs = []
 const add = (dir, i) => {
   if (!dirs[i]) dirs[i] = []

@@ -1,4 +1,4 @@
-import { isSymbol, isArray } from '@newy/shared'
+import { isSymbol, isArray, isIntegerKey } from '@newy/shared'
 export const TriggerTypes = {
   ADD: 'add',
   SET: 'set',

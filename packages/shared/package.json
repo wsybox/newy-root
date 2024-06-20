@@ -1,6 +1,6 @@
 {
   "name": "@newy/shared",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "@newy/shared",
   "author": "weisongyao",
   "keywords": [
@@ -38,7 +38,8 @@
       "esm-bundler",
       "cjs",
       "global"
-    ]
+    ],
+    "external": true
   },
   "sideEffects": false
 }

@@ -2,7 +2,8 @@ import { defineConfig } from 'rollup'
 import { createRequire } from 'node:module'
 import json from '@rollup/plugin-json'
 import resolvePlugin from '@rollup/plugin-node-resolve'
-import terser from '@rollup/plugin-terser' // 解析第三方插件
+import terser from '@rollup/plugin-terser'
+// import externals from 'rollup-plugin-node-externals' // 解析第三方插件
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -39,12 +40,28 @@ const packageOptions = pkg.buildOptions || {}
 
 // 1、创建一个打包配置
 function createConfig(format, output) {
+  let external = [],
+    deps
+  if (packageOptions.external && (deps = pkg.dependencies)) {
+    external = Object.keys(deps).filter(key => deps[key].startsWith('workspace:'))
+  }
   const isGlobalBuild = /global/.test(format)
-  if (isGlobalBuild) output.name = packageOptions.name
+
+  if (isGlobalBuild) {
+    output.name = packageOptions.name
+    if (packageOptions.external && deps && external.length) {
+      output.globals = {}
+      external.forEach(key => {
+        output.globals[key] = key.replace(/(@|\/)+([a-z]){1}/g, (_, _1, s) => s.toUpperCase())
+      })
+    }
+  }
+
   output.sourcemap = false
 
   // 生成rollup配置
   const config = {
+    external,
     input: resolve(`src/index.js`), // 输入
     output, // 输出
     plugins: [json(), resolvePlugin(), terser()]

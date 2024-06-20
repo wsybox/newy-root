@@ -54,9 +54,8 @@ export const raf = (task, rate = 16.6) => {
 export const genhook = (...keys) => {
   let hook = new Map()
 
-  let key,
-    res = {}
-  for (key of keys) {
+  const res = {}
+  keys.forEach(key => {
     if (!isString(key)) throw TypeError('The parameter of function genhook must be a string')
 
     res[key] = (...args) => {
@@ -69,7 +68,7 @@ export const genhook = (...keys) => {
       }
       throw Error(`The parameters of function ${key} do not match`)
     }
-  }
+  })
 
   return res
 }

@@ -144,6 +144,7 @@ export const compiler = (children, pure = false, dirtymap = new Map()) => {
   let append = ({ html: h, dirtymap: m }) => {
     html += h
     if (isMap(m) && !Object.is(dirtymap, m) && m.size) {
+      let key, val
       for ([key, val] of m) !dirtymap.has(key) && dirtymap.set(key, val)
       m.clear()
     }

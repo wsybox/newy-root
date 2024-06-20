@@ -1,6 +1,6 @@
 {
   "name": "@newy/compiler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "@newy/compiler",
   "author": "weisongyao",
   "keywords": [
@@ -42,7 +42,8 @@
       "esm-bundler",
       "cjs",
       "global"
-    ]
+    ],
+    "external": true
   },
   "sideEffects": false
 }

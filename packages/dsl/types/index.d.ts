@@ -11,9 +11,9 @@ declare module '@newy/dsl' {
     is: (tag: any) => tag is Tag<T>
     __conf: (tag: Tag<T>) => Record<string, any>
   }
-  export type Tag<T = Data> = Fn<T> & {
+  export type Tag<T = Data> = {
     (strs: TemplateStringsArray, ...vals: any[]): Fn<T>
-  }
+  } & Fn<T>
   export type Config<T = Data> = {
     resolve?: (d: Data) => T
     progress?: (f1: Tag<T>, f2: Tag<T>) => void

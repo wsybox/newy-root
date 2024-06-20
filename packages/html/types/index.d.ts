@@ -12,7 +12,7 @@ declare module '@newy/html' {
       emit: Record<string, (...args: any[]) => void>
     ) => Element
   >
-  export type Use<T = CompilerHook> = (plugin: (ctx: T) => Record<string, any> | void) => void
+  export type Use<T = any> = (plugin: (ctx: T) => Record<string, any> | void) => void
   export const use: Use
 
   type Render = (...nodes: any[]) => Element

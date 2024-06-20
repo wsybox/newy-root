@@ -64,9 +64,9 @@ export function initSignal({ ComputedSignal, StateSignal, effect, stop }) {
       // signal<string | number> 默认渲染一个span，并使用signal.get(data)作为span的textContent
       if (isSignal(data) && isPrimitive(data())) {
         return render(dom => {
-          let setter = () => (dom.textContent = data().toString())
-          setter()
-          track(dom, 'signalText', setter)
+          const action = () => (dom.textContent = data().toString())
+          action()
+          track(dom, 'signalText', action)
         }, 'span')
       }
     })
@@ -113,9 +113,10 @@ export function initSignal({ ComputedSignal, StateSignal, effect, stop }) {
           if (isSignal(data)) {
             const baseAction = scodhook[key]()[0]
             const action = () => baseAction(name, data(), dom)
-            action()
-            track(dom, `signalParam: ${key}.${name}`, action)
-            return 1
+            if (isDef(action())) {
+              track(dom, `signalParam: ${key}.${name}`, action)
+              return 1
+            }
           }
         })
     })

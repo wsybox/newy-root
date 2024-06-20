@@ -1,4 +1,4 @@
-import { isSymbol, isArray, isIntegerKey } from '@newy/shared'
+import { isSymbol, isArray, isDef, isIntegerKey } from '@newy/shared'
 export const TriggerTypes = {
   ADD: 'add',
   SET: 'set',
@@ -157,7 +157,7 @@ export function trigger(target, p, value, type) {
       if (key === 'length' || (!isSymbol(key) && key >= newLength)) deps.push(dep)
     })
   } else {
-    if (p !== void 0) deps.push(depsMap.get(p))
+    if (isDef(p)) deps.push(depsMap.get(p))
 
     switch (type) {
       case TriggerTypes.ADD:

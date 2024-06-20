@@ -7,7 +7,7 @@ const { get: __ } = destWeakMap()
 
 const genprops = self =>
   new Proxy(puppet, {
-    get: (_, key) => {
+    get(_, key) {
       let _p = __(self)
       if (!_p.props) _p.props = {}
 

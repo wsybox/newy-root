@@ -8,7 +8,9 @@ import {
   isFunction,
   getKebabCase,
   isArray,
-  genhook
+  genhook,
+  isUndef,
+  isDef
 } from '@newy/shared'
 export const hook = genhook('param', 'compile')
 
@@ -18,9 +20,11 @@ export const didp = {
 }
 
 let dirtyNodeCount = 0
-let dirtypp = () => dirtyNodeCount++
+function dirtypp() {
+  return dirtyNodeCount++
+}
 
-let dirty = (dirtymap, dirtyTask) => {
+function dirty(dirtymap, dirtyTask) {
   let id = dirtypp()
   dirtymap.set(id, dirtyTask)
   return id
@@ -59,16 +63,16 @@ export const isVnode = vnode => vcache.has(vnode)
 const reg = /^(?![0-9-_.])[\w-.:]+$/
 const err = i => new Error('compilerAttribute: TemplateStrings format error code: ' + i)
 
-const compilerAttribute = (strings, values, dirtymap) => {
+function compilerAttribute(strings, values, dirtymap) {
   let attrhtml = ''
   let paramTaskMap = new Map()
 
-  let action =
+  let setter =
     key =>
     (f, only = true) => {
       let old = paramTaskMap.get(key)
       if (!only) return paramTaskMap.set(key, old ? dom => (old(dom), f(dom)) : f), 1
-      else if (!old) paramTaskMap.set(key, f), 1
+      else if (!old) return paramTaskMap.set(key, f), 1
     }
 
   if (values.length === 0) attrhtml = strings[0].trim()
@@ -87,13 +91,14 @@ const compilerAttribute = (strings, values, dirtymap) => {
       current,
       key = '',
       val
-    let clear = () => {
+    function clear() {
       key = ''
       val = void 0
     }
-    let addattr = (k, v) => {
-      if (!(exist && paramhook.some(f => f(k, v, action(k)) !== void 0)))
-        attrhtml += `${k}=${isString(v) ? `'${v}'` : v} `
+    function addattr(key, val) {
+      if (!exist || paramhook.every(t => isUndef(t(key, val, setter(key))))) {
+        attrhtml += `${key}=${isString(val) ? `"${val}"` : val} `
+      }
     }
     while (strs.length > 0) {
       current = strs.shift()
@@ -136,12 +141,12 @@ const compilerAttribute = (strings, values, dirtymap) => {
   return attrhtml
 }
 
-export const compiler = (children, pure = false, dirtymap = new Map()) => {
+export function compiler(children, pure = false, dirtymap = new Map()) {
   let html = ''
   let childhook = hook.compile()
   let exist = childhook && childhook.length
 
-  let append = ({ html: h, dirtymap: m }) => {
+  function append({ html: h, dirtymap: m }) {
     html += h
     if (isMap(m) && !Object.is(dirtymap, m) && m.size) {
       let key, val
@@ -150,7 +155,7 @@ export const compiler = (children, pure = false, dirtymap = new Map()) => {
     }
   }
 
-  let appendPlace = (dirtyTask, tagName = 'div') => {
+  function appendPlace(dirtyTask, tagName = 'div') {
     html += `<${tagName} data-${didp.line}='${dirty(dirtymap, dirtyTask)}' />`
     return 1
   }
@@ -167,8 +172,8 @@ export const compiler = (children, pure = false, dirtymap = new Map()) => {
     } else if (isVnode(child)) append(child)
     else if (!pure && exist) {
       let f, res
-      for (f of childhook) if ((res = f(child, appendPlace)) !== void 0) break
-      if (res === void 0) throw new Error('compile error')
+      for (f of childhook) if (isDef((res = f(child, appendPlace)))) break
+      if (isUndef(res)) throw new Error('compile error')
     } else throw new Error('compile error')
   })
 

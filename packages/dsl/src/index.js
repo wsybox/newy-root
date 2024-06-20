@@ -1,10 +1,10 @@
 const puppet = Object.freeze({})
 
-const _te = (parm, type) => {
+function _te(parm, type) {
   if (!!parm && typeof parm !== type) throw TypeError(`Parameter ${parm} must be a ${type}`)
 }
 
-export const init = (config = {}) => {
+export function init(config = {}) {
   let _cache = new WeakSet()
   let _confMap = new WeakMap()
   let { resolve, progress } = {
@@ -17,7 +17,7 @@ export const init = (config = {}) => {
   _te(resolve, 'function')
   _te(progress, 'function')
 
-  let _progress = (f1, f2) => {
+  function _progress(f1, f2) {
     _cache.add(f1)
     if (f2) _confMap.set(f1, _confMap.get(f2))
     if (progress) progress(f1, f2)
@@ -29,7 +29,7 @@ export const init = (config = {}) => {
   }
 
   let _handle = other => ({
-    get: (_, name) => {
+    get(_, name) {
       let _conf = {}
       let f = (conf, ...args) => {
         if (

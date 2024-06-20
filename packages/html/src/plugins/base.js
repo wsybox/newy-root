@@ -5,6 +5,7 @@ import {
   isBoolean,
   isPrimitive,
   isArray,
+  isDef,
   genhook
 } from '@newy/shared'
 
@@ -28,7 +29,7 @@ export function BasePlugin({ hook }) {
     if (isFunction(val)) {
       dom.addEventListener(key, val)
       return 1
-    }
+    } else throw new Error('invalid event handler')
   })
   scodhook.dataset((key, val, dom) => {
     if (isPrimitive(val) || isBoolean(val) || val === null) {
@@ -42,7 +43,7 @@ export function BasePlugin({ hook }) {
       return setter(dom => {
         Object.entries(val).forEach(([name, data]) => {
           let cb
-          for (cb of cbs) if (cb(name, data, dom) !== void 0) break
+          for (cb of cbs) if (isDef(cb(name, data, dom))) break
         })
       }, ['on', 'dataset'].includes(key))
     } else if (key === 'style' && isString(val))

@@ -1,9 +1,9 @@
-import { getKebabCase, hasOwn, destWeakMap } from '@newy/shared'
+import { getKebabCase, hasOwn, genCtx } from '@newy/shared'
 
 const puppet = Object.freeze({})
 let cur
 
-const { get: __ } = destWeakMap()
+const __ = genCtx()
 
 const genprops = self =>
   new Proxy(puppet, {

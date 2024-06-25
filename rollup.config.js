@@ -3,7 +3,6 @@ import { createRequire } from 'node:module'
 import json from '@rollup/plugin-json'
 import resolvePlugin from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
-// import externals from 'rollup-plugin-node-externals' // 解析第三方插件
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 

@@ -23,7 +23,7 @@ readdirSync('packages')
       deps: !dep
         ? dep
         : Object.keys(dep)
-            .filter(key => key.startsWith('@newy/') && dep[key] === 'workspace:*')
+            .filter(key => key.startsWith('@newy/') && dep[key].startsWith('workspace:'))
             .map(k => k.slice(6))
     }
   })

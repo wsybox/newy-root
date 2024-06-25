@@ -13,19 +13,14 @@ declare module '@newy/shared' {
   export const isPrimitive: (s: any) => s is string | number
   export const isPlainObject: (val: unknown) => val is object
   export const isMap: (val: unknown) => val is Map<any, any>
-  export const isSet: (val: unknown) => val is Set<any>
+  // export const isSet: (val: unknown) => val is Set<any>
   export const getKebabCase: (str: string, separator?: string) => string
   export const hasOwn: (val: object, key: string | symbol) => key is never
   export const isIntegerKey: (key: unknown) => boolean
   export const hasChanged: (value: any, oldValue: any) => boolean
-  export const destWeakMap: () => {
-    get: (p: any) => any
-    set: (p: any, v: any) => void
-    delete: (p: any) => boolean
-    has: (p: any) => boolean
-  }
+  export const genCtx: () => (p: any) => any
   type Fn = (...args: any[]) => any
-  export const raf: (task: Fn, rate?: number) => void
+  // export const raf: (task: Fn, rate?: number) => void
   export type Hook<T extends string[]> = {
     [s in T[number]]: {
       <F = Fn>(): F[] | undefined

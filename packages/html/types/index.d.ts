@@ -21,47 +21,9 @@ declare module '@newy/html' {
   }
   export type SCODKeys = ['style', 'class', 'on', 'dataset']
   export const BasePlugin: (ctx: { hook: CompilerHook }) => Record<string, any>
-
-  export type Signal<T> = T extends (...args: any[]) => any
-    ? () => T
-    : {
-        (): T
-        (v: T): T
-        (f: (v: T) => T): T
-      }
-  export type Raw<T> = (s: Signal<T>) => T
-
-  type EffectOptions = {
-    lazy?: boolean
-    scheduler?: (...args: any[]) => any
-    onStop?: () => void
-  }
-  type Runner<T> = {
-    (): T
-    effect: { stop: () => void }
-  }
-  class StateSignal<T> {
-    constructor(initial: T): {
-      (): T
-      (v: T): T
-      (f: (v: T) => T): T
-    }
-  }
-  class ComputedSignal<T> {
-    constructor(initial: T): () => T
-  }
-  export const initSignal: (Signal: {
-    StateSignal: StateSignal
-    ComputedSignal: ComputedSignal
-    effect: <T = any>(fn: () => T, options?: EffectOptions) => Runner<T>
-    stop: (runner: Runner<any>) => void
-  }) => {
-    $: Signal
-    isSignal: (v: any) => v is Signal<any>
-    ExtendSignalPlugin: (ctx: {
-      hook: CompilerHook
-      scodkeys: SCODKeys
-      scodhook: Hook<SCODKeys>
-    }) => Record<string, any>
-  }
+  export function ExtendSignalPlugin(ctx: {
+    hook: CompilerHook
+    scodkeys: SCODKeys
+    scodhook: Hook<SCODKeys>
+  }): Record<string, any>
 }

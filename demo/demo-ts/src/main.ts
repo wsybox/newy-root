@@ -1,10 +1,10 @@
 import './style.css'
 import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
-import { html, tag, $ } from 'newy'
+import { html, tag, signal } from 'newy'
 
 const { div, a, img, h1, button, p } = tag
-const counter = $(0)
+const counter = signal(0)
 
 document
   .querySelector('#app')!

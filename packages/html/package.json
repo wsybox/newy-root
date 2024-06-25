@@ -1,6 +1,6 @@
 {
   "name": "@newy/html",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "@newy/html",
   "author": "weisongyao",
   "keywords": [
@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "@newy/compiler": "workspace:*",
-    "@newy/shared": "workspace:*"
+    "@newy/shared": "workspace:*",
+    "@newy/signal": "workspace:*"
   },
   "buildOptions": {
     "name": "NewyHTML",

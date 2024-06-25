@@ -13,7 +13,7 @@ export const isPrimitive = val =>
   isString(val) || isNumber(val) || val instanceof String || val instanceof Number
 export const isPlainObject = val => toTypeString(val) === '[object Object]'
 export const isMap = val => toTypeString(val) === '[object Map]'
-export const isSet = val => toTypeString(val) === '[object Set]'
+// export const isSet = val => toTypeString(val) === '[object Set]'
 export const getKebabCase = (str, separator = '-') => {
   let temp = str.replace(/[A-Z]/g, i => separator + i.toLowerCase())
   if (temp.slice(0, 1) === separator) temp = temp.slice(1)
@@ -24,32 +24,26 @@ export const hasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj, ke
 export const isIntegerKey = key =>
   isString(key) && key !== 'NaN' && key[0] !== '-' && '' + parseInt(key, 10) === key
 export const hasChanged = (value, oldValue) => !Object.is(value, oldValue)
+export const extend = Object.assign
 
-export const destWeakMap = () => {
+export const genCtx = () => {
   let map = new WeakMap()
 
-  return {
-    get: p => {
-      let res = map.get(p)
-      if (!res) map.set(p, (res = {}))
-      return res
-    },
-    set: (p, v) => {
-      map.set(p, v)
-    },
-    delete: p => map.delete(p),
-    has: p => map.has(p)
+  return p => {
+    let res = map.get(p)
+    if (!res) map.set(p, (res = {}))
+    return res
   }
 }
 
-export const raf = (task, rate = 16.6) => {
-  if (!isFunction(task)) throw TypeError('')
-  const start = Date.now()
-  requestAnimationFrame(() => {
-    if (Date.now() - start < rate) task()
-    else raf(task, rate)
-  })
-}
+// export const raf = (task, rate = 16.6) => {
+//   if (!isFunction(task)) throw TypeError('')
+//   const start = Date.now()
+//   requestAnimationFrame(() => {
+//     if (Date.now() - start < rate) task()
+//     else raf(task, rate)
+//   })
+// }
 
 export const genhook = (...keys) => {
   let hook = new Map()
